@@ -28,9 +28,9 @@ def login(request):
             #获取的表单数据与数据库进行比较
             user = User.objects.filter(username__exact = username,password__exact = password)
             if user:
-                return render_to_response('success.html',{'username':username})
+                return render_to_response('success.html',{'username':username,'msg':'登陆成功'})
             else:
-                return HttpResponseRedirect('/login/')
+                return HttpResponseRedirect('/account/login')
     else:
         uf = LoginForm()
     return render_to_response('login.html',{'uf':uf})
@@ -51,7 +51,7 @@ def register(request):
             user.email = email
             user.save()
             #返回注册成功页面
-            return render_to_response('success.html',{'username':username})
+            return render_to_response('success.html',{'username':username,'msg':'注册成功'})
     else:
         uf = UserForm()
     return render_to_response('register.html',{'uf':uf})
